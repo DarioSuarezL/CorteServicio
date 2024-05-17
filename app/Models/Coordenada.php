@@ -16,4 +16,10 @@ class Coordenada extends Model
         'nombre_beneficiario'
     ];
 
+    public function cortarServicio()
+    {
+        $this->cortado = true;
+        $this->save();
+    }
+
 }

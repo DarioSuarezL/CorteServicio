@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Coordenada;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CoordenadaController extends Controller
 {
@@ -13,6 +14,12 @@ class CoordenadaController extends Controller
     public function index()
     {
         //
+    }
+
+    public function indexApi()
+    {
+        $coordenadas = Coordenada::all();
+        return response()->json($coordenadas, 200);
     }
 
     /**
@@ -28,10 +35,28 @@ class CoordenadaController extends Controller
      */
     public function store(Request $request)
     {
+
+    }
+
+    public function storeApi(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'latitud' => 'required|numeric',
+            'longitud' => 'required|numeric',
+            'nombre_beneficiario' => 'required|max:70',
+        ],[
+            'latitud.required' => 'La latitud es requerida',
+            'latitud.numeric' => 'La latitud debe ser un número',
+            'longitud.required' => 'La longitud es requerida',
+            'longitud.numeric' => 'La longitud debe ser un número',
+            'nombre_beneficiario.required' => 'El nombre del beneficiario es requerido',
+            'nombre_beneficiario.max' => 'El nombre del beneficiario no debe exceder los 70 caracteres',
+        ]);
+
+        if ($validator->fails()) return response()->json($validator->errors(), 400);
+
         $coord = Coordenada::create($request->all());
-
         if ($coord) return response()->json(['message' => 'Coordenada creada correctamente'], 201);
-
         return response()->json(['message' => 'Error al crear la coordenada'], 500);
     }
 
@@ -41,6 +66,13 @@ class CoordenadaController extends Controller
     public function show(string $id)
     {
         //
+    }
+
+    public function showApi(string $id)
+    {
+        $coord = Coordenada::find($id);
+        if ($coord) return response()->json($coord, 200);
+        return response()->json(['message' => 'Coordenada no encontrada'], 404);
     }
 
     /**
@@ -59,6 +91,31 @@ class CoordenadaController extends Controller
         //
     }
 
+    public function updateApi(Request $request, string $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'latitud' => 'required|numeric',
+            'longitud' => 'required|numeric',
+            'nombre_beneficiario' => 'required|max:70',
+        ],[
+            'latitud.required' => 'La latitud es requerida',
+            'latitud.numeric' => 'La latitud debe ser un número',
+            'longitud.required' => 'La longitud es requerida',
+            'longitud.numeric' => 'La longitud debe ser un número',
+            'nombre_beneficiario.required' => 'El nombre del beneficiario es requerido',
+            'nombre_beneficiario.max' => 'El nombre del beneficiario no debe exceder los 70 caracteres',
+        ]);
+
+        if ($validator->fails()) return response()->json($validator->errors(), 400);
+
+        $coord = Coordenada::find($id);
+        if ($coord) {
+            $coord->update($request->all());
+            return response()->json(['message' => 'Coordenada actualizada correctamente'], 200);
+        }
+        return response()->json(['message' => 'Coordenada no encontrada'], 404);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -66,4 +123,51 @@ class CoordenadaController extends Controller
     {
         //
     }
+
+    public function destroyApi(string $id)
+    {
+        $coord = Coordenada::find($id);
+        if ($coord) {
+            $coord->delete();
+            return response()->json(['message' => 'Coordenada eliminada correctamente'], 200);
+        }
+        return response()->json(['message' => 'Coordenada no encontrada'], 404);
+    }
+
+    public function cortarServicio(){
+        //
+    }
+
+    public function cortarServicioApi(string $id){
+        $coord = Coordenada::find($id);
+        if ($coord) {
+            $coord->cortarServicio();
+            return response()->json(['message' => 'Coordenada sin servicio'], 200);
+        }
+        return response()->json(['message' => 'Coordenada no encontrada'], 404);
+    }
+
+    // public function restaurarServicio(){
+    //
+    // }
+
+    public function sinCortar(){
+        //
+    }
+
+    public function sinCortarApi(){
+        $coordenadas = Coordenada::where('cortado', false)->get();
+        return response()->json($coordenadas, 200);
+    }
+
+    public function cortadas(){
+        //
+    }
+
+    public function cortadasApi(){
+        $coordenadas = Coordenada::where('cortado', true)->get();
+        return response()->json($coordenadas, 200);
+    }
+
+
 }
