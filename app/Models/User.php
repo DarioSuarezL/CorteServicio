@@ -62,4 +62,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getEssentialData(){
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+        ];
+    }
+
 }

@@ -10,18 +10,19 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::post('/coordenadas', [CoordenadaController::class, 'storeApi']);
-Route::get('/coordenadas', [CoordenadaController::class, 'indexApi']);
-Route::get('/coordenadas/{id}/show', [CoordenadaController::class, 'showApi']);
-Route::put('/coordenadas/{id}/update', [CoordenadaController::class, 'updateApi']);
-Route::delete('/coordenadas/{id}/destroy', [CoordenadaController::class, 'destroyApi']);
+Route::post('/coordenadas', [CoordenadaController::class, 'storeApi'])->middleware('auth:sanctum');
+Route::get('/coordenadas', [CoordenadaController::class, 'indexApi'])->middleware('auth:sanctum');
+Route::get('/coordenadas/{id}/show', [CoordenadaController::class, 'showApi'])->middleware('auth:sanctum');
+Route::put('/coordenadas/{id}/update', [CoordenadaController::class, 'updateApi'])->middleware('auth:sanctum');
+Route::delete('/coordenadas/{id}/destroy', [CoordenadaController::class, 'destroyApi'])->middleware('auth:sanctum');
 
 
-Route::post('/coordenadas/{id}/cortar-servicio', [CoordenadaController::class, 'cortarServicioApi']);
-Route::post('/coordenadas/{id}/restaurar-servicio', [CoordenadaController::class, 'restaurarServicioApi']);
-Route::get('/coordenadas/sin-cortar', [CoordenadaController::class, 'sinCortarApi']);
-Route::get('/coordenadas/cortadas', [CoordenadaController::class, 'cortadasApi']);
+Route::post('/coordenadas/{id}/cortar-servicio', [CoordenadaController::class, 'cortarServicioApi'])->middleware('auth:sanctum');
+Route::post('/coordenadas/{id}/restaurar-servicio', [CoordenadaController::class, 'restaurarServicioApi'])->middleware('auth:sanctum');
+Route::get('/coordenadas/sin-cortar', [CoordenadaController::class, 'sinCortarApi'])->middleware('auth:sanctum');
+Route::get('/coordenadas/cortadas', [CoordenadaController::class, 'cortadasApi'])->middleware('auth:sanctum');
 
 
 Route::post('/login', [AuthApiController::class, 'login']);
+Route::post('/register', [AuthApiController::class, 'register']);
 Route::post('/logout', [AuthApiController::class, 'logout'])->middleware('auth:sanctum');
