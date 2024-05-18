@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\CoordenadaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthApiController;
+use App\Http\Controllers\CoordenadaController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -20,3 +21,7 @@ Route::post('/coordenadas/{id}/cortar-servicio', [CoordenadaController::class, '
 Route::post('/coordenadas/{id}/restaurar-servicio', [CoordenadaController::class, 'restaurarServicioApi']);
 Route::get('/coordenadas/sin-cortar', [CoordenadaController::class, 'sinCortarApi']);
 Route::get('/coordenadas/cortadas', [CoordenadaController::class, 'cortadasApi']);
+
+
+Route::post('/login', [AuthApiController::class, 'login']);
+Route::post('/logout', [AuthApiController::class, 'logout'])->middleware('auth:sanctum');
