@@ -23,6 +23,6 @@ Route::get('/coordenadas/sin-cortar', [CoordenadaController::class, 'sinCortarAp
 Route::get('/coordenadas/cortadas', [CoordenadaController::class, 'cortadasApi'])->middleware('auth:sanctum');
 
 
-Route::post('/login', [AuthApiController::class, 'login']);
-Route::post('/register', [AuthApiController::class, 'register']);
-Route::post('/logout', [AuthApiController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('/login-api', [AuthApiController::class, 'login']);
+Route::post('/register-api', [AuthApiController::class, 'register']);
+Route::post('/logout-api', [AuthApiController::class, 'logout'])->middleware('auth:sanctum');
