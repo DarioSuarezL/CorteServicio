@@ -13,7 +13,8 @@ class CoordenadaController extends Controller
      */
     public function index()
     {
-        //
+        $coordenadas = Coordenada::paginate(10);
+        return view('coordenadas.index', compact('coordenadas'));
     }
 
     public function indexApi()

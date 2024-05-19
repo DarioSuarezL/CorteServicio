@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Coordenada;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CoordenadaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,4 +18,5 @@ Route::middleware([
     })->name('dashboard');
 });
 
-require __DIR__.'/api.php';
+Route::get('/coordenadas', [CoordenadaController::class, 'index'])->name('coordenadas.index');
+
