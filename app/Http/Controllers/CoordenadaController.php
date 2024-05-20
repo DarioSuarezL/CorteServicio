@@ -13,8 +13,7 @@ class CoordenadaController extends Controller
      */
     public function index()
     {
-        $coordenadas = Coordenada::paginate(10);
-        return view('coordenadas.index', compact('coordenadas'));
+        return view('coordenadas.index');
     }
 
     public function indexApi()
@@ -45,6 +44,12 @@ class CoordenadaController extends Controller
             'latitud' => 'required|numeric',
             'longitud' => 'required|numeric',
             'nombre_beneficiario' => 'required|max:70',
+            'codigo_unidad_vecinal' => 'required|numeric',
+            'cantidad_facturas' => 'required|numeric',
+            'UMZ' => 'required',
+            // 'tipo_de_red' => 'required',
+            'codigo_factura' => 'required',
+            'importe_factura' => 'required|numeric',
         ],[
             'latitud.required' => 'La latitud es requerida',
             'latitud.numeric' => 'La latitud debe ser un número',
@@ -52,6 +57,15 @@ class CoordenadaController extends Controller
             'longitud.numeric' => 'La longitud debe ser un número',
             'nombre_beneficiario.required' => 'El nombre del beneficiario es requerido',
             'nombre_beneficiario.max' => 'El nombre del beneficiario no debe exceder los 70 caracteres',
+            'codigo_unidad_vecinal.required' => 'El código de la unidad vecinal es requerido',
+            'codigo_unidad_vecinal.numeric' => 'El código de la unidad vecinal debe ser un número',
+            'cantidad_facturas.required' => 'La cantidad de facturas es requerida',
+            'cantidad_facturas.numeric' => 'La cantidad de facturas debe ser un número',
+            'UMZ.required' => 'La UMZ es requerida',
+            // 'tipo_de_red.required' => 'El tipo de red es requerido',
+            'codigo_factura.required' => 'El código de la factura es requerido',
+            'importe_factura.required' => 'El importe de la factura es requerido',
+            'importe_factura.numeric' => 'El importe de la factura debe ser un número',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), 400);
@@ -98,6 +112,12 @@ class CoordenadaController extends Controller
             'latitud' => 'required|numeric',
             'longitud' => 'required|numeric',
             'nombre_beneficiario' => 'required|max:70',
+            'codigo_unidad_vecinal' => 'required|numeric',
+            'cantidad_facturas' => 'required|numeric',
+            'UMZ' => 'required',
+            // 'tipo_de_red' => 'required',
+            'codigo_factura' => 'required',
+            'importe_factura' => 'required|numeric',
         ],[
             'latitud.required' => 'La latitud es requerida',
             'latitud.numeric' => 'La latitud debe ser un número',
@@ -105,6 +125,15 @@ class CoordenadaController extends Controller
             'longitud.numeric' => 'La longitud debe ser un número',
             'nombre_beneficiario.required' => 'El nombre del beneficiario es requerido',
             'nombre_beneficiario.max' => 'El nombre del beneficiario no debe exceder los 70 caracteres',
+            'codigo_unidad_vecinal.required' => 'El código de la unidad vecinal es requerido',
+            'codigo_unidad_vecinal.numeric' => 'El código de la unidad vecinal debe ser un número',
+            'cantidad_facturas.required' => 'La cantidad de facturas es requerida',
+            'cantidad_facturas.numeric' => 'La cantidad de facturas debe ser un número',
+            'UMZ.required' => 'La UMZ es requerida',
+            // 'tipo_de_red.required' => 'El tipo de red es requerido',
+            'codigo_factura.required' => 'El código de la factura es requerido',
+            'importe_factura.required' => 'El importe de la factura es requerido',
+            'importe_factura.numeric' => 'El importe de la factura debe ser un número',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), 400);

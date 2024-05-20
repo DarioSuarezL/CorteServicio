@@ -13,7 +13,13 @@ class Coordenada extends Model
         'latitud',
         'longitud',
         'cortado',
-        'nombre_beneficiario'
+        'nombre_beneficiario',
+        'codigo_unidad_vecinal',
+        'cantidad_facturas',
+        'UMZ',
+        'tipo_de_red',
+        'codigo_factura',
+        'importe_factura',
     ];
 
     public function cortarServicio()
